@@ -21,6 +21,8 @@
 	// 	maxage?: number;
 	// };
 	export async function load({ page }) {
+		const Hello = (await import(`../../posts/${page.params.slug}.md`));
+
 		const post = {
 			title: page.params.slug,
 			date: new Date(),
@@ -29,15 +31,21 @@
 
 		return {
 			props: {
-				post
+				Hello: Hello,
+				title: Hello.metadata.title,
+				 // post
 			}
 		}
 	}
 </script>
 
 <script>
-	export let post;
+	// import Hello from '../../posts/hello.md';
+
+	// export let post;
+	export let Hello;
+	export let title;
 </script>
 
-
-<h3>{post.title} detail</h3>
+<h2>{title}</h2>
+<Hello />
